@@ -5,12 +5,12 @@ Backup your IZ\*ONE Private Mail with own credential
 Python + Requests
 
 ## What this do?
-Download all private mails and images from server, and save it as raw HTML file. It also resolves relative path issue of HTML file automatically.
+Download all private mail and images from the server, and save them as raw HTML file. It also resolves relative path issue of HTML file automatically.
 
 ## Usage
-0. clone or download this repository
-1. Use HTTPS proxy(Burpsuite, Fiddler, ...) to capture your own IZ\*ONE Private Mail packets
-2. In HTTPS packet, extract below header values and write it down to python script
+0. Clone or download this repository.
+1. Use HTTPS proxy(Burpsuite, Fiddler, ...) to capture your own IZ\*ONE Private Mail packets.
+2. In HTTPS packet, extract below header values and write them down to corresponding variable in python script.
  - User-Id : PM_USERID
  - Access-Token : PM_ACCESSTOKEN
  - Application-Version : PM_APPVER
@@ -18,7 +18,7 @@ Download all private mails and images from server, and save it as raw HTML file.
  - Os-Type : PM_OSTYPE
  - Os-Version : PM_OSVERSION
  - User-Agent : PM_USERAGENT
-3. Run python scripts, it will save all image files under `output/image/mail` folder, and mail contents under `output/mail` folder. Also, it will right simple javascript array file into `output/pm.js` for user who want to write your own viewer page
+3. Run the python script. It will save all image files under `output/image/mail` folder, and mail content under `output/mail` folder. Also, it will write simple javascript array file into `output/pm.js` for whom want to write their own viewer page.
 4. Open `output/viewer.html`
 
 ## In Future

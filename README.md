@@ -28,6 +28,7 @@ Python + Requests
 3. pm.py를 실행합니다. 모든 메일은 `output/mail` 폴더에 저장되며, 모든 이미지는 `output/image/mail`에 저장됩니다.
 4. `output/viewer.html`을 실행하여 백업 결과물을 확인합니다.
 
+**최신 버전의 Private Mail Viewer는 [BackupViewer](https://github.com/mdsnins/BackupViewer)를 확인해주세요.**
+
 ## 추가 예정인 기능
 현재 버전은 멤버의 프로필 사진 다운로드를 지원하지 않습니다. 추후 추가될 예정입니다.
-

@@ -6,4 +6,5 @@ cat cert.key cert.crt > mitmproxy-ca.pem
 openssl pkcs12 -in cert.p12 -passin env:CA_PASS -clcerts -nokeys -out mitmproxy-ca-cert.pem
 cp mitmproxy-ca-cert.pem mitmproxy-ca-cert.cer
 rm -f cert.key cert.crt cert.p12
+mkdir cert
 cp mitm* cert/

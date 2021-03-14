@@ -10,7 +10,4 @@ ADD service.py /app/
 ADD *.sh /tmp/ 
 RUN chmod +x /tmp/*.sh
 
-ENV AES_PASS aaaaaa
-ENV CA_PASS bbbbb
-
 ENTRYPOINT ["/bin/sh", "/tmp/proxy_run.sh"]

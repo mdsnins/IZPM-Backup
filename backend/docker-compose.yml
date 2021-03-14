@@ -9,6 +9,7 @@ services:
     environment:
       AES_PASS: SAMPLE_AES_PASSWORD
       CA_PASS: SAMPLE_CA_PASSWORD
+      REDIS_HOST: redis
     links:
       - redis
     depends_on:

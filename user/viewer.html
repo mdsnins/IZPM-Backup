@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>아이즈원 Private Mail 아카이브</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta charset="UTF-8">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/earlyaccess/notosanskr.css">
+
+	<style>
+		* {
+			font-family: "Noto Sans KR" !important;
+		}
+		.card {
+			min-height: 5em;
+		}
+
+		.modal-body {
+			height: 82vh;
+		}
+
+		.modal-title {
+			padding-left: 1.55%;
+		}
+
+		#body_mail {
+			width: 100%;
+			height: 100%;
+			overflow: scroll;
+			-webkit-overflow-scrolling: touch;
+			border: 0;
+		}
+
+		#body_mail::-webkit-scrollbar {
+		    display: none;
+		}
+		
+		.label-time {
+			margin-top: 1%;
+		}
+
+		.img-profile {
+			width: 100%;
+			height: auto;
+			border-radius: 50%;
+		}
+
+		
+		.name-member {
+			font-size: 0.9rem;
+		}
+	</style>
+</head>
+<body>
+	<header>
+		<div class="collapse bg-dark" id="navbarHeader">
+			<div class="container">
+				<div class="row">
+					<div class="col-sm-4 offset-md-1 py-4">
+						<h4 class="text-white">멤버별 보기</h4>
+						<ul id="member_list" class="list-unstyled">
+							<li><a href="#" class="text-white" onclick="filter_member();">전원</a></li>
+						</ul>
+					</div>
+					<div class="col-sm-8 col-md-7 py-4">
+						<p class="text-white">현재 설정된 이름 : <span id="user_name"></span> <a href="#" id="change_name" class="text-white">(변경)</a></p>
+						<div id="detail_name" class="row">
+						</div>
+						<br >
+
+						<h4 class="text-white">아카이브?</h4>
+						<p class="text-muted">본인의 Private Mail 아카이브 계정을 이용하여, 편리하게 프라이빗 메일을 백업하고, 볼 수 있는 도구입니다. 검색등의 기능은 차차 추가될 예정입니다..!</p>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="navbar navbar-dark bg-dark shadow-sm">
+			<div class="container d-flex justify-content-between">
+				<a href="#" class="navbar-brand d-flex align-items-center">
+					<strong>IZ*ONE Private Mail</strong>
+				</a>
+				<div>
+					<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarHeader" aria-controls="navbarHeader" aria-expanded="false" aria-label="Toggle navigation">
+						<span class="navbar-toggler-icon"></span>
+					</button>
+				</div>
+			</div>
+		</div>
+		</header>
+
+		<div class="py-5 bg-light">
+			<div class="container">
+				<div id="list_mail" class="row">
+					
+				</div>
+			</div>
+		</div>
+
+		<div class="modal fade" id="view_mail" tabindex="-1" role="dialog" aria-labelledby="modalMailView" aria-hidden="true">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="modalMailView"></h5>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body">
+						<iframe id="body_mail" src="">
+						</iframe>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- jQuery first, then bootstrap.js -->
+		<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+		<script src="./pm.js"></script>
+		<script src="./loader.js"></script>
+	</body>
+</html>

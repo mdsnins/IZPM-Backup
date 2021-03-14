@@ -43,6 +43,7 @@ def request(flow: http.HTTPFlow) -> None:
         #TODO: Dump cookie and redis communication here
         hdr = dict(flow.request.headers)
         hdr.pop('If-None-Match', None)
+        hdr["terms-version"] = "5" #Add Terms-Version 
         hdr_str = serialize_dict(hdr)
 
         key = gen_key()
@@ -58,10 +59,10 @@ def request(flow: http.HTTPFlow) -> None:
     </head>
     <body>
         <p>
-            <strong>IZPM-Backup</strong><
+            <strong>IZPM-Backup</strong>
             <br />
             ''' + \
-            "컴퓨터에서 {} 에 접속 후<br />키 : {} / PIN : {} 입력 후 <br />진행 해주세요.".format(WEB_HOST, key, pin).encode() + \
+            '컴퓨터에서 {} 에 접속 후<br /><b>키</b> {} / <b>PIN</b> {} 입력 후 <br />진행 해주세요.'.format(WEB_HOST, key, pin).encode() + \
             b'''</p>
     </body>
 </html> ''',

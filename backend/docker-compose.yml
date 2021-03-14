@@ -9,7 +9,22 @@ services:
     environment:
       AES_PASS: SAMPLE_AES_PASSWORD
       CA_PASS: SAMPLE_CA_PASSWORD
+      WEB_HOST: "http://localhost/"
       REDIS_HOST: redis
+    links:
+      - redis
+    depends_on:
+      - redis
+  web:
+    container_name: izpm_web
+    ports:
+      - "80:80"
+    build:
+      context: ./web/
+    environment:
+      REDIS_HOST: redis
+      RECAPTCHA_KEY: RECAPTCHA_KEY
+      RECAPTCHA_SECRET: REACPTCHA_SECRET
     links:
       - redis
     depends_on:

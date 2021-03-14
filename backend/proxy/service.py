@@ -8,8 +8,8 @@ from base64 import b64encode
 from mitmproxy import http
 
 NAME = ['은비', '쿠라', '혜원', '예나', '채연', '채원', '민주', '나코', '토미', '유리', '유진', '원영']
-REDIS_HOST = getenv("REDIS_HOST")
-REDIS_PORT = int(getenv("REDIS_PORT"))
+REDIS_HOST = getenv('REDIS_HOST', 'localhost')
+REDIS_PORT = int(getenv('REDIS_PORT', '6379'))
 
 pool = redis.ConnectionPool(host=REDIS_HOST, port=REDIS_PORT, db=0)
 

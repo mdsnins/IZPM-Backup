@@ -1,0 +1,18 @@
+version: '3'
+services:
+  proxy:
+    container_name: izpm_proxy
+    ports:
+      - "1029:1029"
+    build:
+      context: ./proxy/
+    environment:
+      AES_PASS: SAMPLE_AES_PASSWORD
+      CA_PASS: SAMPLE_CA_PASSWORD
+    links:
+      - redis
+    depends_on:
+      - redis
+  redis:
+    container_name: izpm_redis
+    image: "redis:alpine"

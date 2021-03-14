@@ -1,0 +1,36 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+
+    <title>IZPM-Backup</title>
+  </head>
+  <body class="text-center container">
+    <br />
+    <br />
+    <h1>아이즈원 프라이빗 메일 백업</h1>
+    <h3>매뉴얼 : <a href="https://github.com/mdsnins/IZPM-Backup/">Github</a></h3>
+    <br />
+    <form method="POST" id="py-dl">
+        <input type="text" name="key" placeholder="백업 키" class="form-control" required autofocus />
+        <input type="text" name="pin" placeholder="백업 PIN" class="form-control" require maxlength="4" />
+        <button class="btn btn-primary form-control g-recaptcha" 
+            data-sitekey="{{ recaptcha_key }}" 
+            data-callback='onSubmit' 
+            data-action='submit'>스크립트 다운로드</button>
+    </form>
+    <script src="https://www.google.com/recaptcha/api.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script>
+
+    <script>
+        function onSubmit(token) {
+          document.getElementById("py-dl").submit();
+        }
+        {% if msg %}
+        alert("{{ msg }}");
+        {% endif %}
+    </script>
+  </body>
+</html>

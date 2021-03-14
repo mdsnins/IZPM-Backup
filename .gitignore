@@ -1,0 +1,16 @@
+.DS_Store
+._*
+
+.vscode
+.vscode/*
+
+__pycache__/
+*.pyc
+
+cert/
+cert/*
+*.cer
+*.crt
+*.pem
+*.p12
+*.pfx

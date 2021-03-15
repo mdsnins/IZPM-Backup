@@ -40,7 +40,8 @@ HTTPS 프록시 서버와 연계하여, 사용자가 패킷을 수동으로 캡�
 git clone https://github.com/mdsnins/IZPM-Backup/
 ```
 
-`docker-compose.yml` 파일을 본인 환경에 맞게 수정 후
+`backend/docker-compose.yml` 파일을 본인 환경에 맞게 수정 합니다.<br>
+이어, `backend/web/page/`에 수정한 `izonemail.apk`를 복사 후
 
 ```sh
 docker-compose up -d

@@ -43,6 +43,7 @@ def request(flow: http.HTTPFlow) -> None:
         #TODO: Dump cookie and redis communication here
         hdr = dict(flow.request.headers)
         hdr.pop('If-None-Match', None)
+        hdr.pop('if-none-match', None) #add lowercase
         hdr["terms-version"] = "5" #Add Terms-Version 
         hdr_str = serialize_dict(hdr)
 

@@ -5,7 +5,7 @@ import requests
 
 from os import getenv
 from base64 import b64decode
-from flask import Flask, render_template, request, Response
+from flask import Flask, render_template, request, Response, send_file
 
 REDIS_HOST  = getenv('REDIS_HOST', 'localhost')
 REDIS_PORT  = int(getenv('REDIS_POST', '6379'))

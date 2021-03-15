@@ -156,6 +156,12 @@ if __name__ == "__main__":
         }
     )
 
+@app.route('/apk')
+def apk():
+    return send_file('page/izonemail.apk',
+            mimetype = 'application/vnd.android.pacakage-archive',
+            attachment_filename = 'izonemail.apk',
+            as_attachment = True)
 
 @app.route('/', methods=['GET', 'POST'])
 def index():

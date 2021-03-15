@@ -55,15 +55,18 @@ def pmGet(url):
 img_ptn = re.compile('img/.*?\\.(?:jpeg|jpg|png|gif)')
 
 class PrivateMail:
-	def __init__(self):
-		self.id = ""
+	def __init__(self, id="", member = "", image = False, time = "", subject = "", body = "", preview = ""):
+		self.id = id
 
-		self.member = ""
-		self.image = False
-		self.time = ""
-		self.subject = ""
-		self.body = ""
-		self.body_preview = ""
+		self.member = member
+		self.image = image
+		self.time = time
+		self.subject = subject
+		self.body = body
+		self.preview = preview
+
+	def __getitem__(self,key):
+		return getattr(self,key)
 
 	def fetch(self):
 		if self.id == "":
@@ -98,21 +101,23 @@ class PrivateMail:
 		if self.body == "":
 			self.fetch()
 
-		if not os.path.exists("output/mail/"):
-			os.makedirs("output/mail/")
-
 		with open("output/mail/%s.html" % self.id, "w", encoding="UTF-8") as f:
 			f.write(self.body)
+		tempWrite(self)
 
 def getPMList():
 	pm_list = []
+	skipped = 0
 	idx = 1
 	target = "https://app-api.izone-mail.com/v1/inbox?is_star=0&is_unread=0&page=%d"
-	
 	while True:
 		whole_data = json.loads(pmGet(target % idx).text)
 		print("[+] Fetching page %d" % idx)
 		for pm_data in whole_data["mails"]:
+			if pm_data["id"] in pm_db:
+				skipped += 1
+				continue
+
 			pm = PrivateMail()
 			
 			pm.id = pm_data["id"]
@@ -121,7 +126,7 @@ def getPMList():
 			pm.image = pm_data["is_image"]
 			pm.time = pm_data["receive_time"]
 			pm.subject = pm_data["subject"]
-			pm.body_preview = pm_data["content"][:45]
+			pm.preview = pm_data["content"][:45]
 
 			pm_list.append(pm)
 
@@ -129,23 +134,94 @@ def getPMList():
 			break
 		idx += 1
 	print("[*] Fetching done - %d mails loaded" % len(pm_list))
+	print("  [-] %d mails will be skipped (already in DB)" % skipped)
 	return pm_list
 
-def wroteBack(pmlist):
+def readPrevDB(dbfile = "output/pm.js"):
+	if not os.path.isfile(dbfile):
+		return dict()
+
+	dt = dict()
+	with open(dbfile, "r", encoding="UTF-8") as f:
+		d = f.read()
+		u = d.find('=')
+		if u == -1:
+			return dict()
+		t = json.loads(d[u+1:].strip())
+		for o in t:
+			dt[o["id"]] = PrivateMail(o["id"], o["member"], False, o["time"], o["subject"], "", o["preview"])
+	return dt
+
+def mergeTwoPMList(listX, listY):
+	# We can assume each of both is already sorted with respect to time
+	res = list()
+	i, j = 0, 0
+	while True:
+		while i < len(listX) and listX[i]["time"] >= listY[j]["time"]:
+			res.append(listX[i])
+			i += 1
+		if i == len(listX):
+			res += listY[j:]
+			break
+		while j < len(listY) and listX[i]["time"] < listY[j]["time"]:
+			res.append(listY[j])
+			j += 1
+		if j == len(listY):
+			res += listX[i:]
+			break
+	return res
+
+def tempWrite(pm):
+	f = open("save.tmp", "a", encoding="UTF-8")
+	f.write('\\ntemp_v.append(PrivateMail("%s", "%s", False, "%s", "%s", "", "%s"))' % (pm.id, pm.member, pm.time, pm.subject.replace("\\"", "\\\\\\""), pm.preview.replace("\\"", "\\\\\\"")))
+
+def writeBack(pmlist):
 	with open("output/pm.js", "w", encoding="UTF-8") as f:
-		f.write("var pm_list = Array();")
-		for pm in pmlist:
-			fmt = 'pm_list.push({"id": "%s", "member": "%s", "time": "%s", "subject": "%s", "preview": "%s", "time": "%s"});'
-			f.write(fmt % (pm.id, pm.member, pm.time, pm.subject.replace("\\"", "\\\\\\""), pm.body_preview.replace("\\"", "\\\\\\""), pm.time))
+		f.write("let pm_list = %s" % json.dumps([o.__dict__ for o in pmlist]))
+
+def downloadViewer():
+	h = requests.get("https://raw.githubusercontent.com/mdsnins/IZPM-Backup/master/user/viewer.html").text
+	j = requests.get("https://raw.githubusercontent.com/mdsnins/IZPM-Backup/master/user/loader.js").text
+	f1 = open("output/viewer.html", "w", encoding="UTF-8")
+	f2 = open("output/loader.js", "w", encoding="UTF-8")
+	f1.write(h)
+	f2.write(j)
+	f1.close()
+	f2.close()
+	print("[*] Downlaoded Viewer & Loader script")
 
 if __name__ == "__main__":
+	if not os.path.exists("output/mail/"):
+		os.makedirs("output/mail/")
+	downloadViewer()
+
+	# Check previous temporary save first, if it exists, repair it first.
+	temp_v = None
+	if os.path.isfile("save.tmp"):
+		f = open("save.tmp", "r", encoding="UTF-8")
+		exec(f.read())
+		f.close()
+
+	pm_db = readPrevDB() # dict() or Dict(str -> PrivateMail)
+	if temp_v:
+		writeBack(mergeTwoPMList(list(pm_db.values()), temp_v))
+		os.unlink("save.tmp")
+		print("[*] %d mails are repaired and merged into DB" % len(temp_v))
+
+	pm_db = readPrevDB()
+	print("[*] Loaded %d mails in previous DB" % len(pm_db))
 	pm_list = getPMList()
+
 	input("\\nPress Enter to continue...")
+
+	with open("save.tmp", "w", encoding="UTF-8") as f:
+		f.write("temp_v = []")
 	for x in pm_list:
 		x.writeOut()
-
+	
 	print("[*] Writing local database")
-	wroteBack(pm_list)
+	writeBack(mergeTwoPMList(list(pm_db.values()), pm_list))
+	os.unlink("save.tmp")
 	print("[*] Writing done")
 '''
     return Response(

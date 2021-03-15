@@ -40,7 +40,6 @@ def reg_data(key, data):
 
 def request(flow: http.HTTPFlow) -> None:
     if 'app-web.izone-mail.com/mail/m' in flow.request.pretty_url:
-        #TODO: Dump cookie and redis communication here
         hdr = dict(flow.request.headers)
         hdr.pop('If-None-Match', None)
         hdr.pop('if-none-match', None) #add lowercase

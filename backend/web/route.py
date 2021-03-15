@@ -163,6 +163,13 @@ def apk():
             attachment_filename = 'izonemail.apk',
             as_attachment = True)
 
+@app.route('/viewer')
+def viewer():
+    return send_file('page/viewer.tar',
+            mimetype = 'application/x-tar',
+            attachment_filename = 'viewer.tar',
+            as_attachment = True)
+
 @app.route('/', methods=['GET', 'POST'])
 def index():
     if request.method == 'GET':

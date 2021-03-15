@@ -3,11 +3,12 @@
 
 기존 버전을 확인하시려면 `legacy` 브랜치 혹은 [./legacy](legacy) 폴더를 확인해주세요.
 
+HTTPS 프록시 서버와 연계하여, 사용자가 패킷을 수동으로 캡처할 필요 없이 자동 구성된 스크립트 다운로드를 지원합니다.
+
 
 ## 일반 사용자들
 
-***Android용 매뉴얼은 추후 작성 예정입니다.***
-
+### iOS User
 1. 상단의 초록색 **Code** -> **Download Zip**을 클릭하여 다운로드 받고 압축을 푼 후, `user` 폴더만 남깁니다.
 1. 사용하는 iOS 단말기에서 Wi-Fi에 연결합니다.
 1. Wi-Fi 옆 (i) 아이콘을 누르고, 아애로 스크롤을 내려 프록시 구성 > 수종 > 서버 `izpm.wonyoung.kr`, 포트 `1029`를 입력합니다.
@@ -23,6 +24,13 @@
 1. 받아지는 Python 스크립트를 실행합니다.
 1. 실행 후 `output` 폴더의 내용물을 `1번`의 `user` 폴더로 이동시킵니다.
 1. `user` 폴더의 `viewer.html`을 더블클릭 하여 브라우저로 실행합니다.
+
+### Android User
+1. [http://izpm.wonyoung.kr/apk](http://izpm.wonyoung.kr/apk)에서 수정된 Private Mail 앱을 다운로드 받습니다.
+1. 수정된 Private Mail 앱의 정상 동작을 확인합니다.
+1. 이후, 호스트 `izpm.wonyoung.kr` 포트 `1029`로 프록시를 설정합니다.
+1. `http://private.mail`에 접속하여 Android용 인증서를 설치합니다. (운영체제, 제조사별 설치방법 상이)
+1. iOS 유저 가이드의 9번 항목으로 이동하여 진행합니다.
 
 
 ## 프로그래머용 (자체 서버 구성)

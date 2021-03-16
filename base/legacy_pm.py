@@ -36,6 +36,7 @@ def pmGet(url):
 
 img_ptn = re.compile('img/.*?\\.(?:jpeg|jpg|png|gif)')
 pm_db   = dict()
+pm_meta = dict()
 
 class PrivateMail:
 	def __init__(self, id="", member = "", image = False, time = "", subject = "", body = "", preview = ""):
@@ -173,10 +174,37 @@ def downloadViewer():
 	f2.close()
 	print("[*] Downlaoded Viewer & Loader script")
 
+def processMetadata():
+    global pm_headers
+    f = open("config.json", "r", encoding="UTF-8")
+    pm_headers = json.loads(f.read())
+    f.close()
+
+    md = json.loads(pmGet("https://app-api.izone-mail.com/v1/menu").text)
+    
+    res = dict()
+    for o in md["receiving_members"]:
+        for m in o["team_members"]["members"]:
+            t = dict() 
+            mid = m["member"]["id"] - 1
+            mname = m["member"]["name"]
+            t[mid] = mname
+            t[mname] = mid #make dictionary
+
+            with open("output/%d.jpg" % mid, "wb") as f:  #download profile 
+                resp = pmGet(m["member"]["image_url"])
+                f.write(resp.content)
+                print("[*] Profile image downloaded of member %s" % mname)
+    
+    with open("output/pm_meta.js", "w", encoding="UTF-8") as f:
+        f.write("let member_dict = %s" % json.dumps(res))
+
 if __name__ == "__main__":
 	if not os.path.exists("output/mail/"):
 		os.makedirs("output/mail/")
-	downloadViewer()
+	downloadViewer()  # Download latest viewer
+    
+    processMetadata()  # Process metadatas (process profile image, user-defined name here)
 
 	# Check previous temporary save first, if it exists, repair it first.
 	temp_v = None

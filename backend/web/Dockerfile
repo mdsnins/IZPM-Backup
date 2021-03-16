@@ -8,7 +8,5 @@ RUN pip3 install redis flask requests
 RUN mkdir /app/
 ADD *.py /app/
 ADD page /app/page
-ADD ../../user /app/page/user
-RUN tar cvf /app/page/viewer.tar /app/page/user
 
 ENTRYPOINT ["python3", "/app/index.py"]

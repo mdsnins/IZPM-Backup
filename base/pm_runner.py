@@ -145,7 +145,7 @@ def checkVersion():
 		print("========================================")
 		print("There is a new version : %s" % v) 
 		print("(Current Version : %s)" % VER)
-		print("Visit http://izpm.wonyoung.kr/runner") 
+		print("Visit http://izpm.wonyoung.kr/runner?%s" % v) 
 		print("=======================================")
 
 def downloadViewer():

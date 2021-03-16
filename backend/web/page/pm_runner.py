@@ -167,7 +167,7 @@ def processMetadata():
 
     md = json.loads(pmGet("https://app-api.izone-mail.com/v1/menu").text)
     
-    res = dict()
+    res = {"운영팀": -1}
     for o in md["receiving_members"]:
         for m in o["team_members"][0]["members"]:
             mid = m["member"]["id"] - 1

@@ -24,7 +24,8 @@ services:
     environment:
       REDIS_HOST: redis
       RECAPTCHA_KEY: RECAPTCHA_KEY
-      RECAPTCHA_SECRET: REACPTCHA_SECRET
+      RECAPTCHA_SECRET: RECAPTCHA_SECRET
+      PM_VER: 2.5.0
     links:
       - redis
     depends_on:

@@ -7,7 +7,7 @@ import requests
 def pmGet(url):
 	return requests.get(url, headers=pm_headers)
 
-VER = "2.5.0"
+VER = os.getenv('PM_VER', '')
 pm_headers = {}
 
 img_ptn = re.compile('img/.*?\\.(?:jpeg|jpg|png|gif)')

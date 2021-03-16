@@ -7,7 +7,7 @@ import requests
 def pmGet(url):
 	return requests.get(url, headers=pm_headers)
 
-#Private Mail Credentials
+VER = "2.5.0"
 pm_headers = {}
 
 img_ptn = re.compile('img/.*?\\.(?:jpeg|jpg|png|gif)')
@@ -139,6 +139,15 @@ def writeBack(pmlist):
 	with open("output/pm.js", "w", encoding="UTF-8") as f:
 		f.write("let pm_list = %s" % json.dumps([o.__dict__ for o in pmlist]))
 
+def checkVersion():
+	v = requests.get("http://izpm.wonyoung.kr/ver").text
+	if v >= VER:
+		print("========================================")
+		print("There is a new version : %s" % v) 
+		print("(Current Version : %s)" % VER)
+		print("Visit http://izpm.wonyoung.kr/runner") 
+		print("=======================================")
+
 def downloadViewer():
 	h = requests.get("https://raw.githubusercontent.com/mdsnins/IZPM-Backup/master/user/viewer.html").text
 	j = requests.get("https://raw.githubusercontent.com/mdsnins/IZPM-Backup/master/user/loader.js").text
@@ -160,13 +169,13 @@ def processMetadata():
     
     res = dict()
     for o in md["receiving_members"]:
-        for m in o["team_members"]["members"]:
+        for m in o["team_members"][0]["members"]:
             mid = m["member"]["id"] - 1
             mname = m["member"]["name"]
-            res[mid] = mname
+            res[int(mid)] = mname
             res[mname] = mid
 
-            with open("output/%d.jpg" % mid, "wb") as f:  #download profile 
+            with open("output/img/profile/%d.jpg" % mid, "wb") as f:  #download profile 
                 resp = pmGet(m["member"]["image_url"])
                 f.write(resp.content)
                 print("[*] Profile image downloaded of member %s" % mname)
@@ -177,10 +186,11 @@ def processMetadata():
 if __name__ == "__main__":
 	if not os.path.exists("output/mail/"):
 		os.makedirs("output/mail/")
+	if not os.path.exists("output/img/profile/"):
+		os.makedirs("output/img/profile/")
+	checkVersion()	# Check Script Version
 	downloadViewer()  # Download latest viewer
-    
-    processMetadata()  # Process metadatas (process profile image, user-defined name here)
-
+	processMetadata()  # Process metadatas (process profile image, user-defined name here)
 	# Check previous temporary save first, if it exists, repair it first.
 	temp_v = None
 	if os.path.isfile("save.tmp"):
@@ -209,4 +219,3 @@ if __name__ == "__main__":
 	writeBack(mergeTwoPMList(list(pm_db.values()), pm_list))
 	os.unlink("save.tmp")
 	print("[*] Writing done")
-

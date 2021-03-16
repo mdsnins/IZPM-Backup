@@ -51,7 +51,7 @@ def download_config(data):
 
 @app.route('/runner')
 def runner():
-	return send_file('/page/pm_runner.py',
+	return send_file('page/pm_runner.py',
 		mimetype = "text/x-python",
         attachment_filename = 'izpm_run.py',
         as_attachment = True

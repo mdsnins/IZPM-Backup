@@ -161,11 +161,10 @@ def processMetadata():
     res = dict()
     for o in md["receiving_members"]:
         for m in o["team_members"]["members"]:
-            t = dict() 
             mid = m["member"]["id"] - 1
             mname = m["member"]["name"]
-            t[mid] = mname
-            t[mname] = mid #make dictionary
+            res[mid] = mname
+            res[mname] = mid
 
             with open("output/%d.jpg" % mid, "wb") as f:  #download profile 
                 resp = pmGet(m["member"]["image_url"])

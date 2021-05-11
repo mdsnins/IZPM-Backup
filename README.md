@@ -10,8 +10,8 @@ HTTPS 프록시 서버와 연계하여, 사용자가 패킷을 수동으로 캡�
 가이드 링크 (03.17 기준)
 
 - **iOS** : [장원영갤러리 - iOS 프메 백업 가이드](https://gall.dcinside.com/mgallery/board/view/?id=wonyeong&no=368368)
-- **Android with Custom APK** : [장원영갤러리 - Android 프메 백업 가이드](https://gall.dcinside.com/mgallery/board/view/?id=wonyeong&no=368388)
-- **Android with Nox** : [최예나갤러리 - 안드로이드 대충 원클릭](https://gall.dcinside.com/mgallery/board/view/?id=chaeyaena&no=552474&page=1)
+- <strike>Android with Custom APK : [장원영갤러리 - Android 프메 백업 가이드](https://gall.dcinside.com/mgallery/board/view/?id=wonyeong&no=368388)</strike>
+- **Android** : [최예나갤러리 - 프메 백업 가이드 - 안드로이드 진짜 원클릭](https://gall.dcinside.com/mgallery/board/view/?id=chaeyaena&no=591445)
 
 ## 일반 사용자들
 

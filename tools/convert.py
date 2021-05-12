@@ -13,6 +13,8 @@ def main():
 	for pm in pm_data:
 		pm.pop("subject")
 		pm.pop("preview")
+		pm.pop("body")
+
 
 	f = open("pm_upload.json", "w", encoding="UTF-8")
 	f.write(json.dumps(pm_data))

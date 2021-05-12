@@ -7,11 +7,17 @@ HTTPS 프록시 서버와 연계하여, 사용자가 패킷을 수동으로 캡�
 
 현재 실행 스크립트의 가장 최신 버전은 `2.5.0`입니다. 버전별 변경 사항은 [버전정보](./VERSION.md)를 참고 해주세요.
 
-가이드 링크 (03.17 기준)
+가이드 링크 (05.13 기준)
 
+- **IZPM-FakeServer Migration** : [장원영갤러리 - 데이터 생성 가이드](https://gall.dcinside.com/mgallery/board/view?id=wonyeong&no=385690)
 - **iOS** : [장원영갤러리 - iOS 프메 백업 가이드](https://gall.dcinside.com/mgallery/board/view/?id=wonyeong&no=368368)
 - <strike>Android with Custom APK : [장원영갤러리 - Android 프메 백업 가이드](https://gall.dcinside.com/mgallery/board/view/?id=wonyeong&no=368388)</strike>
 - **Android** : [최예나갤러리 - 프메 백업 가이드 - 안드로이드 진짜 원클릭](https://gall.dcinside.com/mgallery/board/view/?id=chaeyaena&no=591445)
+
+- **For International WIZ\*ONEs**, Translated by [@93Jun_39](https://twitter.com/93Jun_39)
+  - [English](https://link.medium.com/nslWigws0eb)
+  - [Japanese](https://link.medium.com/V7f7dAus0eb)
+  - [Chinese](https://link.medium.com/1q0v7rxs0eb)
 
 ## 일반 사용자들
 
